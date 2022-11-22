@@ -9,13 +9,13 @@
 
 - Logiciel utilisé : VEGAS PRO 15.
 
-- Fichier : AGOT.veg
+- Folder : AGOT
 
 
 ## ELFI
 
 - Description : Exercice d'implémentation de son dans un projet Unity
 
-- Fichier : Folder Elfi
+- Folder : Elfi
 
 - Build Unity avec son  : [Lien Google Drive](https://drive.google.com/file/d/15tBl3gOefIfdlPIbryt5oJ-NVFiVBTGz/view?usp=share_link)
