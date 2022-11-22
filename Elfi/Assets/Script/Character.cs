@@ -10,9 +10,15 @@ public class Character : MonoBehaviour
     float speed, verticalMovement;
     Vector3 direction, directionForward, directionRight, nextDir;
     Animator animator;
-    [SerializeField]
-    AudioClip stepSound;
-
+    public bool isInside = false;
+    public float stepVolumeEarth;
+    [SerializeField] AudioClip[] _stepSoundEarth;
+    public float stepVolumeRock;
+    [SerializeField] AudioClip[] _stepSoundRock;
+    public AudioClip[] HeartBeatMusic;
+    public AudioSource HeartbeatSource;
+    int stepSoundClip = 0;
+    AudioSource _audioSource;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,6 +27,8 @@ public class Character : MonoBehaviour
         nextDir = transform.forward;
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -101,16 +109,28 @@ public class Character : MonoBehaviour
     // Fonction appelée lors de chaque pas grâce à un animation event intégré dans le cycle de marche du personnage
     public void StepSound()
     {
-        // À remplacer lorsque vous intégrerez les sons de pas
-        if (stepSound != null)
+        if(isInside)
         {
-            GetComponent<AudioSource>().PlayOneShot(stepSound);
+            if (_stepSoundRock != null)
+            {
+                _audioSource.PlayOneShot(_stepSoundRock[stepSoundClip], stepVolumeEarth);                
+            }
+            else
+            {
+                Debug.Log("Il faut intégrer l'audioclip dans le script Character !!!");
+            }
         }
         else
         {
-            Debug.Log("Il faut intégrer l'audioclip dans le script Character !!!");
+            if (_stepSoundEarth != null)
+            {
+                _audioSource.PlayOneShot(_stepSoundEarth[stepSoundClip], stepVolumeRock);
+            }
+            else
+            {
+                Debug.Log("Il faut intégrer l'audioclip dans le script Character !!!");
+            }
         }
-
-
+        stepSoundClip = (stepSoundClip + 1) % 6;
     }
 }
